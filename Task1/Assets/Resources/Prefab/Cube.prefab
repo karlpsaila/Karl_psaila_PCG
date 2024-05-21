@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &235110336198112086
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3267125590271719507}
+  - component: {fileID: 962946552086677239}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3267125590271719507
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 235110336198112086}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -2985}
+  m_LocalScale: {x: 3, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &962946552086677239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 235110336198112086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9e2f938f7abce34c89c7fce3671095a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floorSize: {x: 100, y: 0.4, z: 100}
+  roofSize: {x: 100, y: 0.4, z: 105}
+  sideWallSize: {x: 100, y: 100, z: 5}
+  frontBackWallSize: {x: 5, y: 100, z: 100}
+  mainDoorSize: {x: 5, y: 40, z: 40}
+  frontWindowSize: {x: 5, y: 25, z: 25}
+  sideWindowSize: {x: 30, y: 35, z: 5}
+  groundSize: {x: 300, y: 0.2, z: 300}
+  floorPosition: {x: 0, y: 0.8, z: 0}
+  roofPosition: {x: 0, y: 202, z: 0.30000305}
+  leftWallPosition: {x: 0, y: 101.2, z: 100.3}
+  rightWallPosition: {x: 0, y: 101.2, z: -99.7}
+  frontWallPosition: {x: -95, y: 101.2, z: 5.300003}
+  backWallPosition: {x: 95, y: 101.2, z: 0}
+  mainDoorPosition: {x: -96, y: 40, z: 1}
+  leftFrontWindowPosition: {x: -96, y: 145, z: 50}
+  rightFrontWindowPosition: {x: -96, y: 145, z: -49}
+  leftWindowPosition: {x: 7, y: 139, z: 101}
+  rightWindowPosition: {x: 0, y: 139, z: -100}
