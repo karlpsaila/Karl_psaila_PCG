@@ -123,58 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &549477803
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 549477804}
-  - component: {fileID: 549477805}
-  m_Layer: 0
-  m_Name: House
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &549477804
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 549477803}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -435.10007, y: -5562.647, z: -5814.294}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &549477805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 549477803}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec03476426425f04baedcc585d8690cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseFloorSize: {x: 10, y: 0.4, z: 10}
-  baseRoofSize: {x: 11, y: 0.4, z: 11}
-  wallHeight: 3
-  doorHeight: 2
-  windowHeight: 1.5
-  windowWidth: 2
-  numberOfHouses: 5
-  areaSize: {x: 500, y: 500}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -377,7 +325,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1498442481
 Transform:
   m_ObjectHideFlags: 0
@@ -407,14 +355,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floorSize: {x: 100, y: 0.4, z: 100}
   roofSize: {x: 100, y: 0.4, z: 105}
-  sideWallSize: {x: 100, y: 100, z: 5}
-  frontBackWallSize: {x: 5, y: 100, z: 100}
+  sideWallSize: {x: 100, y: 150, z: 5}
+  frontBackWallSize: {x: 5, y: 150, z: 100}
   mainDoorSize: {x: 5, y: 40, z: 40}
   frontWindowSize: {x: 5, y: 25, z: 25}
-  sideWindowSize: {x: 30, y: 35, z: 5}
+  sideWindowSize: {x: 35, y: 35, z: 5}
   groundSize: {x: 300, y: 0.2, z: 300}
   floorPosition: {x: 0, y: 0.8, z: 0}
-  roofPosition: {x: 0, y: 202, z: 0.30000305}
+  roofPosition: {x: 0, y: 252, z: 0.30000305}
   leftWallPosition: {x: 0, y: 101.2, z: 100.3}
   rightWallPosition: {x: 0, y: 101.2, z: -99.7}
   frontWallPosition: {x: -95, y: 101.2, z: 5.300003}
@@ -486,4 +434,3 @@ SceneRoots:
   - {fileID: 705507995}
   - {fileID: 1523768214}
   - {fileID: 1498442481}
-  - {fileID: 549477804}

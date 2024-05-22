@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class House : MonoBehaviour
 {
@@ -44,13 +45,53 @@ public class House : MonoBehaviour
     [SerializeField]
     private Vector3 rightWindowPosition = new Vector3(0f,139f,-100f);
 
+    //[SerializeField] public Vector3 position = new Vector3(0f,0f,0f);
     GameObject houseGameObject;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
-        CreateGround();
-        CreateHouse();
+        //CreateGround();
+        SpawnHouses(5);
+    }
+
+    private void SpawnHouses(int numberOfHouses)
+    {
+        // List to store spawn points
+        List<Vector3> spawnPoints = new List<Vector3>()
+      {
+        new Vector3(0f, 0f, 0f),
+        new Vector3(0f, 0f, 500f),
+        new Vector3(-700f, 0f, -200f),
+        new Vector3(-700f, 0f, -400f),
+        new Vector3(-700f, 0f, -600f),
+        new Vector3(-1200f, 0f, -150f),
+        new Vector3(-1200f, 0f, -350f),
+        new Vector3(-1200f, 0f, -550f),
+        new Vector3(-1200f, 0f, -300f),
+        new Vector3(1200f, 0f, -300f),
+      };
+
+        for (int i = 0; i < numberOfHouses; i++)
+        {
+            if (spawnPoints.Count == 0) // Handle case where all spawn points are used
+            {
+                Debug.LogWarning("No more spawn points available!");
+                break;
+            }
+
+            // Get a random spawn point from the list
+            int randomIndex = Random.Range(0, spawnPoints.Count);
+            Vector3 randomSpawnPoint = spawnPoints[randomIndex];
+
+            // Create a house at the random spawn point
+            CreateHouse(randomSpawnPoint);
+
+            // Remove the used spawn point to avoid duplicates
+            spawnPoints.RemoveAt(randomIndex);
+        }
     }
 
     private void InitializeHouse(){
@@ -62,7 +103,7 @@ public class House : MonoBehaviour
         houseGameObject.transform.parent = this.transform;
     }
 
-    private void CreateHouse()
+    private void CreateHouse(Vector3 spawnPoint)
     {
         InitializeHouse();
         CreateFloor();
@@ -86,7 +127,7 @@ public class House : MonoBehaviour
         //Right Side Window
         CreateAperture(sideWindowSize, "Right Side Window", rightWindowPosition, WindowMaterialList());
 
-
+        houseGameObject.transform.position = spawnPoint;
 
 
 
@@ -147,7 +188,7 @@ public class House : MonoBehaviour
         cube.transform.parent = houseGameObject.transform;
     }
 
-    private void CreateGround(){
+    /*private void CreateGround(){
         GameObject cube = new GameObject();
         cube.name = "Ground";
         Cube cubeScript = cube.AddComponent<Cube>();
@@ -158,7 +199,7 @@ public class House : MonoBehaviour
         cube.transform.localScale = groundSize;
         cube.transform.position = this.transform.position;
         cube.transform.parent = this.transform;
-    }
+    }*/
 
     //--------------  Material List ----------------    
 
