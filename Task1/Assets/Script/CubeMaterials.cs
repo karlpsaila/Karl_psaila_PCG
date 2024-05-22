@@ -29,7 +29,6 @@ public class CubeMaterials
 
         Material GrassMaterial = Resources.Load<Material>("Materials/Grass");
 
-        GameObject doorPrefab = Resources.Load<GameObject>("Prefab/Door");
 
         // Add all materials to the list
         cubeMaterialsList.Add(redMaterial);
@@ -40,7 +39,6 @@ public class CubeMaterials
         cubeMaterialsList.Add(blackMaterial);
         cubeMaterialsList.Add(bricksMaterial); 
         cubeMaterialsList.Add(GrassMaterial);
-        cubeMaterialsList.Add(doorPrefab.GetComponent<MeshRenderer>().material);
     }
 
     public List<Material> GetCubeMaterialsList()
