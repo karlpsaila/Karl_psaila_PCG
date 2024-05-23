@@ -321,7 +321,7 @@ GameObject:
   - component: {fileID: 628313750}
   - component: {fileID: 628313749}
   - component: {fileID: 628313748}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,36 +345,38 @@ MonoBehaviour:
   flattenTerrain: 1
   perlinNoise: 1
   PerlinNoiseWidthScale: 0.01
-  perliNoiseHeightScale: 0.01
+  perliNoiseHeightScale: 0.02
   terrainTextureData:
-  - terrainTexture: {fileID: 2800000, guid: 17405fba9d20b47408239b3e82d60232, type: 3}
+  - terrainTexture: {fileID: 2800000, guid: a87cbf62329d56d4681d92302095915c, type: 3}
     tileSize: {x: 20, y: 20}
     minHeight: 0
-    maxHeight: 0.3
-  - terrainTexture: {fileID: 2800000, guid: 3f893818068c13c498261af150bea6f3, type: 3}
+    maxHeight: 0.2
+  - terrainTexture: {fileID: 2800000, guid: 17405fba9d20b47408239b3e82d60232, type: 3}
     tileSize: {x: 20, y: 20}
-    minHeight: 0.3
-    maxHeight: 0.5
+    minHeight: 0.2
+    maxHeight: 0.6
   - terrainTexture: {fileID: 2800000, guid: 40b119fca92359644a86045659fdcb73, type: 3}
     tileSize: {x: 20, y: 20}
-    minHeight: 0.5
-    maxHeight: 0.8
-  - terrainTexture: {fileID: 2800000, guid: c7fbf29883f4f09499b997a5e2a0fb62, type: 3}
-    tileSize: {x: 20, y: 20}
-    minHeight: 0.8
+    minHeight: 0.6
     maxHeight: 1
   addTerrainTexure: 1
   terrainTextureBlendOffset: 0.01
   treeData:
-  - treeMesh: {fileID: 3109230976107281808, guid: 98859ffeeab916344bce9e52e502eac9, type: 3}
+  - treeMesh: {fileID: 1521319932559390546, guid: 915ac35a5aca31d4c9575633be0f6b82, type: 3}
+    minheight: 0
+    maxHeight: 1
+  - treeMesh: {fileID: 7833923683500900003, guid: 11ef6c955fb624a4aaf3b18597db22df, type: 3}
     minheight: 0
     maxHeight: 0.5
-  - treeMesh: {fileID: 3109230976107281808, guid: 98859ffeeab916344bce9e52e502eac9, type: 3}
-    minheight: 0
-    maxHeight: 0.5
-  maxTrees: 3000
+  - treeMesh: {fileID: 114418, guid: 956bd2acf7aae244dac8fc20cf57858d, type: 3}
+    minheight: 0.5
+    maxHeight: 1
+  maxTrees: 10000
   treespacing: 10
   addTrees: 1
+  terrainLayerIndex: 6
+  water: {fileID: 0}
+  waterHeight: 0.3
 --- !u!154 &628313749
 TerrainCollider:
   m_ObjectHideFlags: 0

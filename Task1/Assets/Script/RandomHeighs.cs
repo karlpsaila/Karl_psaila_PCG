@@ -77,6 +77,13 @@ public class RandomHeighs : MonoBehaviour
     [SerializeField]
     private int terrainLayerIndex;
 
+    [Header("Water")]
+    [SerializeField]
+    private GameObject water;
+
+    [SerializeField]
+    private float waterHeight = 0.3f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -91,15 +98,16 @@ public class RandomHeighs : MonoBehaviour
         }
 
         GenerateRandomHeights();
+        GenerateRandomHeights();
         AddTerrainTexure();
         AddTree();
         OnDestory();
+        AddWater();
     }
 
     void Update()
     {
 
-        GenerateRandomHeights();
     }
         private void GenerateRandomHeights()
         {
@@ -294,6 +302,15 @@ public class RandomHeighs : MonoBehaviour
 
         terrainData.treeInstances = treeInstancesList.ToArray();
 
+    }
+
+    private void AddWater()
+    {
+        GameObject waterGameObject = Instantiate(water, this.transform.position ,this.transform.rotation);
+        waterGameObject.name = "Water";
+        waterGameObject.transform.position = this.transform.position + new Vector3(terrainData.size.x / 2, waterHeight * terrainData.size.y,
+        terrainData.size.z / 2);
+        waterGameObject.transform.localScale = new Vector3(terrainData.size.x, 1, terrainData.size.z);
     }
 
     private void OnDestory()
