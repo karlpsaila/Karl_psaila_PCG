@@ -247,10 +247,9 @@ public class House : MonoBehaviour
     private List<Material> RoofMaterialList(){
         List<Material> roofMaterialList = new List<Material>();
 
-        Material magentaMaterial = new Material(Shader.Find("Specular"));
-        magentaMaterial.color = Color.magenta;
+        Material RoofMaterial = Resources.Load<Material>("Materials/M_Wood1");
 
-        roofMaterialList.Add(magentaMaterial);
+        roofMaterialList.Add(RoofMaterial);
 
         return roofMaterialList;
     }    
@@ -258,14 +257,9 @@ public class House : MonoBehaviour
     private List<Material> MainDoorMaterialList(){
         List<Material> mainDoorMaterialList = new List<Material>();
 
-        //Material redMaterial = new Material(Shader.Find("Specular"));
-        //redMaterial.color = Color.red;
+        Material DoorMaterial = Resources.Load<Material>("Materials/M_Wood2");
 
-        GameObject doorPrefab = Resources.Load<GameObject>("Prefab/Door");
-        Renderer doorRenderer = doorPrefab.GetComponent<Renderer>();
-
-
-        mainDoorMaterialList.Add(doorRenderer.sharedMaterial);
+        mainDoorMaterialList.Add(DoorMaterial);
 
         return mainDoorMaterialList;
     }

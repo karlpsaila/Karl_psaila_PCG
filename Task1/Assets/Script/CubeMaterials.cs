@@ -29,6 +29,10 @@ public class CubeMaterials
 
         Material GrassMaterial = Resources.Load<Material>("Materials/Grass");
 
+        Material RoofMaterial = Resources.Load<Material>("Materials/M_Wood1");
+
+        Material DoorMaterial = Resources.Load<Material>("Materials/M_Wood2");
+
 
         // Add all materials to the list
         cubeMaterialsList.Add(redMaterial);
@@ -39,6 +43,8 @@ public class CubeMaterials
         cubeMaterialsList.Add(blackMaterial);
         cubeMaterialsList.Add(bricksMaterial); 
         cubeMaterialsList.Add(GrassMaterial);
+        cubeMaterialsList.Add(RoofMaterial);
+        cubeMaterialsList.Add(DoorMaterial);
     }
 
     public List<Material> GetCubeMaterialsList()
