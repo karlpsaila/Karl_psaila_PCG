@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.4427535, g: 0.48506528, b: 0.5348849, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -209,7 +209,7 @@ Transform:
   m_GameObject: {fileID: 135335485}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 435, z: -657}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -302,13 +302,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 161712331}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0.26381257, y: 0.33030823, z: 0.33016527, w: 0.84397304}
+  m_LocalPosition: {x: 341, y: 817, z: -591}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 13.132, y: 48.711, z: 48.696}
 --- !u!1 &628313747
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,10 +342,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minRandomHeightRange: 0
   maxRandomHeightRange: 0.01
-  flattenTerrain: 0
+  flattenTerrain: 1
   perlinNoise: 1
   PerlinNoiseWidthScale: 0.01
   perliNoiseHeightScale: 0.01
+  terrainTextureData:
+  - terrainTexture: {fileID: 2800000, guid: 17405fba9d20b47408239b3e82d60232, type: 3}
+    tileSize: {x: 20, y: 20}
+    minHeight: 0
+    maxHeight: 0.3
+  - terrainTexture: {fileID: 2800000, guid: 3f893818068c13c498261af150bea6f3, type: 3}
+    tileSize: {x: 20, y: 20}
+    minHeight: 0.3
+    maxHeight: 0.5
+  - terrainTexture: {fileID: 2800000, guid: 40b119fca92359644a86045659fdcb73, type: 3}
+    tileSize: {x: 20, y: 20}
+    minHeight: 0.5
+    maxHeight: 0.8
+  - terrainTexture: {fileID: 2800000, guid: c7fbf29883f4f09499b997a5e2a0fb62, type: 3}
+    tileSize: {x: 20, y: 20}
+    minHeight: 0.8
+    maxHeight: 1
+  addTerrainTexure: 1
+  terrainTextureBlendOffset: 0.01
+  treeData:
+  - treeMesh: {fileID: 3109230976107281808, guid: 98859ffeeab916344bce9e52e502eac9, type: 3}
+    minheight: 0
+    maxHeight: 0.5
+  - treeMesh: {fileID: 3109230976107281808, guid: 98859ffeeab916344bce9e52e502eac9, type: 3}
+    minheight: 0
+    maxHeight: 0.5
+  maxTrees: 3000
+  treespacing: 10
+  addTrees: 1
 --- !u!154 &628313749
 TerrainCollider:
   m_ObjectHideFlags: 0
