@@ -3,6 +3,19 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
+[System.Serializable]
+
+public class TerrainTextureData
+{ 
+    public Texture2D terrainTexture;
+    public Vector2 tileSize;
+
+    public float minHeight;
+    public float maxHeight;
+
+}
+
+
 public class RandomHeighs : MonoBehaviour
 {
     private Terrain terrain;
@@ -30,6 +43,16 @@ public class RandomHeighs : MonoBehaviour
     [SerializeField]
     private float perliNoiseHeightScale = 0.01f;
 
+    [Header("Texture Data")]
+    [SerializeField]
+    private List<TerrainTextureData> terrainTextureData;
+
+    [SerializeField]
+    private bool addTerrainTexure = false;
+
+    [SerializeField]
+    private float terrainTextureBlendOffset = 0.01f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -45,6 +68,7 @@ public class RandomHeighs : MonoBehaviour
         }
 
         GenerateRandomHeights();
+        AddTerrainTexure();
 
     }
 
@@ -97,6 +121,76 @@ public class RandomHeighs : MonoBehaviour
             terrainData.SetHeights(0, 0, heightMap);
 
         }
+    private void AddTerrainTexure()
+    {
+        TerrainLayer[] terrainLayers = new TerrainLayer[terrainTextureData.Count];
+
+        for(int i = 0; i< terrainTextureData.Count; i++)
+        {
+            if(addTerrainTexure)
+            {
+                terrainLayers[i] = new TerrainLayer();
+                terrainLayers[i].diffuseTexture = terrainTextureData[i].terrainTexture;
+                terrainLayers[i].tileSize = terrainTextureData[i].tileSize;
+            }
+            else
+            {
+                terrainLayers[i] = new TerrainLayer();
+                terrainLayers[i].diffuseTexture = null;
+
+            }
+        }
+
+        terrainData.terrainLayers = terrainLayers;
+
+        float[,] hegihtMap = terrainData.GetHeights(0, 0, terrainData.heightmapResolution, terrainData.heightmapResolution);
+
+        float[,,] alphamapList = new float[terrainData.alphamapWidth, terrainData.alphamapHeight, terrainData.alphamapLayers ];
+
+        for(int height =0; height<terrainData.alphamapHeight; height++)
+        {
+            for(int width = 0; width < terrainData.alphamapWidth; width++)
+            {
+                float[] alphamap = new float[terrainData.alphamapLayers];
+
+                for (int i = 0; i < terrainTextureData.Count; i++)
+                {
+                    float heightBegain = terrainTextureData[i].minHeight - terrainTextureBlendOffset;
+                    float heightEnd = terrainTextureData[i].maxHeight + terrainTextureBlendOffset;
+
+                    if (hegihtMap[width, height] >= heightBegain && hegihtMap[width, height] <= heightEnd)
+                    {
+                        alphamap[i] = 1;
+                    }
+                }
+                    Blend(alphamap);
+
+                    for(int j = 0; j< terrainTextureData.Count; j++)
+                    {
+                        alphamapList[width, height, j] = alphamap[j];
+                    }
+
+                
+            }
+        }
+
+        terrainData.SetAlphamaps(0, 0, alphamapList);
+    }
+
+    private void Blend(float[] alphamap)
+    {
+        float total = 0;
+
+        for(int i = 0; i< alphamap.Length; i++)
+        {
+            total += alphamap[i];
+        }
+
+        for(int i = 0; i< alphamap.Length; i++)
+        {
+            alphamap[i] /= total;
+        }
+    }
 
     private void OnDestory()
     {
