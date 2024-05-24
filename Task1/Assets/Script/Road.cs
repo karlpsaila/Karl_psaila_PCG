@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Road : MonoBehaviour
 {
@@ -16,13 +17,15 @@ public class Road : MonoBehaviour
     float roadLength = 600f;
 
     [SerializeField]
-    Vector3 verticalRoadInitialPosition = new Vector3(-425f, 0f, 294f);
+    Vector3 verticalRoadInitialPosition;
     [SerializeField]
-    Vector3 horizontalRoadInitialPosition = new Vector3(170f, 0f, -435f);
+    Vector3 horizontalRoadInitialPosition;
     [SerializeField]
-    Vector3 verticalRoad2InitialPosition = new Vector3(-1029f, 0f, -5f); // New road 1 position
+    Vector3 verticalRoad2InitialPosition;
     [SerializeField]
-    Vector3 horizontalRoad2InitialPosition = new Vector3(-1040f, 0f, -602); // New road 2 position
+    Vector3 horizontalRoad2InitialPosition;
+
+    
 
     GameObject verticalRoad;
     GameObject horizontalRoad;
@@ -60,21 +63,47 @@ public class Road : MonoBehaviour
     private void Update()
     {
 
+        string currentSceneName = SceneManager.GetActiveScene().name;
+       
+        if (currentSceneName == "city 2")
+        {
+            verticalRoadInitialPosition = new Vector3(-425f, 0f, -470f);
+            horizontalRoadInitialPosition = new Vector3(170f, 0f, -1200f);
+            verticalRoad2InitialPosition = new Vector3(-1029f, 0f, -5f);
+            horizontalRoad2InitialPosition = new Vector3(800f, 0f, -602f);
+        }
+        else
+        {
+ 
+             verticalRoadInitialPosition = new Vector3(-425f, 0f, 294f);
+             horizontalRoadInitialPosition = new Vector3(170f, 0f, -435f);
+             verticalRoad2InitialPosition = new Vector3(-1029f, 0f, -5f); // New road 1 position
+             horizontalRoad2InitialPosition = new Vector3(-1040f, 0f, -602); // New road 2 position
+        }
 
     }
+
     private void InitializeCar()
     {
-        float carZOffset = -60f;
-        float carXOffset = 8f;
+        float carZOffsetMin = -60f; // Minimum Z offset for car spawn
+        float carZOffsetMax = 20f;  // Maximum Z offset for car spawn (adjust as needed)
+        float carXOffset = 8f;      // X offset for car spawn (adjust if needed)
 
-        Vector3 carSpawnPos = new Vector3(verticalRoadInitialPosition.x + carXOffset,
-                                          verticalRoadInitialPosition.y,
-                                          verticalRoadInitialPosition.z + carZOffset);
+        // Get the boundaries of your map (replace these with your actual values)
+        float mapMinX = -1000f;
+        float mapMaxX = 1000f;
+
+        // Randomize car position within the specified bounds
+        float randomX = Random.Range(mapMinX + carXOffset, mapMaxX - carXOffset);
+        float randomZ = Random.Range(carZOffsetMin, carZOffsetMax);
+        Vector3 carSpawnPos = new Vector3(randomX, verticalRoadInitialPosition.y, randomZ);
 
         car = Instantiate(carPrefab, carSpawnPos, Quaternion.identity);
         car.name = "Car";
-        car.transform.parent = this.transform;
+
     }
+
+
 
     private void Initializeplane()
     {
@@ -85,7 +114,7 @@ public class Road : MonoBehaviour
 
     private void Initializeball()
     {
-        Vector3 ballspawn = new Vector3(0, 0, 0);
+        Vector3 ballspawn = new Vector3(-1029f, 0f, -5f);
         ball = Instantiate(ball, ballspawn, Quaternion.identity);
         ball.name = "ball";
     }
