@@ -30,8 +30,8 @@ public class RandomHeighs : MonoBehaviour
     private TerrainData terrainData;
 
     [SerializeField]
-    [Range(0f, 1f)]
-    private float minRandomHeightRange = 0f;
+    [Range(0.0f, 1.0f)]
+    private float minRandomHeightRange = 0.0f;
 
     [SerializeField]
     [Range(0f, 1f)]
@@ -77,6 +77,10 @@ public class RandomHeighs : MonoBehaviour
     [SerializeField]
     private int terrainLayerIndex;
 
+    [Header("Path Texture")]
+    [SerializeField]
+    private Texture2D pathTexture;
+
     [Header("Water")]
     [SerializeField]
     private GameObject water;
@@ -85,6 +89,20 @@ public class RandomHeighs : MonoBehaviour
     private float waterHeight = 0.3f;
 
     public Material Skymateial;
+
+    [Header("Path")]
+    [SerializeField]
+    private float pathWidth = 5.0f; // Width of the path
+
+    [SerializeField]
+    private float pathDepth = 0.2f; // Depth of the path
+
+    [Header("Player")]
+    [SerializeField]
+    private GameObject playerPrefab; // Player prefab
+
+    [SerializeField]
+    private Vector3 playerStartPosition = new Vector3(0, 50, 0); // Player start position above the terrain
 
     // Start is called before the first frame update
     void Start()
@@ -104,6 +122,8 @@ public class RandomHeighs : MonoBehaviour
         AddTree();
         OnDestory();
         AddWater();
+        GeneratePath();
+        AddPlayer();
 
         RenderSettings.skybox = Skymateial;
     }
@@ -122,20 +142,15 @@ public class RandomHeighs : MonoBehaviour
                 for(int height = 0; height < terrainData.heightmapResolution; height++)
                 {
 
-                //if (perlinNoise)
-                //{
-                //    heightMap[width, height] = Mathf.PerlinNoise(width * PerlinNoiseWidthScale, height * perliNoiseHeightScale);
-                //}
-                //else
-                //{
-                //    heightMap[width, height] = Random.Range(minRandomHeightRange, maxRandomHeightRange);
-                //}
-
-                heightMap[width, height] = Random.Range(minRandomHeightRange, maxRandomHeightRange);
-                heightMap[width, height] += Mathf.PerlinNoise(width * PerlinNoiseWidthScale, height * perliNoiseHeightScale);
-
-
+                if (perlinNoise)
+                {
+                    heightMap[width, height] = Mathf.PerlinNoise(width * PerlinNoiseWidthScale, height * perliNoiseHeightScale);
                 }
+                else
+                {
+                    heightMap[width, height] = Random.Range(minRandomHeightRange, maxRandomHeightRange);
+                }
+            }
             }
 
             terrainData.SetHeights(0, 0, heightMap);
@@ -317,6 +332,86 @@ public class RandomHeighs : MonoBehaviour
         waterGameObject.transform.localScale = new Vector3(terrainData.size.x, 1, terrainData.size.z);
     }
 
+    private void GeneratePath()
+    {
+        if (pathTexture == null)
+        {
+            Debug.LogError("Path texture is not assigned.");
+            return;
+        }
+
+        float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapResolution, terrainData.heightmapResolution);
+        int pathStartX = Random.Range(0, terrainData.heightmapResolution);
+        int pathStartZ = 0; // Start at the bottom of the map
+        int pathEndX = Random.Range(0, terrainData.heightmapResolution);
+        int pathEndZ = terrainData.heightmapResolution - 1; // End at the top of the map
+
+        List<Vector2Int> path = new List<Vector2Int>();
+        Vector2Int currentPos = new Vector2Int(pathStartX, pathStartZ);
+        path.Add(currentPos);
+
+        Debug.Log("Starting path generation at: " + currentPos);
+
+        while (currentPos.y < pathEndZ)
+        {
+            int direction = Random.Range(0, 3);
+            if (direction == 0 && currentPos.x > 0)
+            {
+                currentPos += Vector2Int.left;
+            }
+            else if (direction == 1 && currentPos.x < terrainData.heightmapResolution - 1)
+            {
+                currentPos += Vector2Int.right;
+            }
+            else
+            {
+                currentPos += Vector2Int.up;
+            }
+            path.Add(currentPos);
+            Debug.Log("Path position added: " + currentPos);
+        }
+
+        foreach (Vector2Int pos in path)
+        {
+            for (int x = -Mathf.FloorToInt(pathWidth / 2); x <= Mathf.FloorToInt(pathWidth / 2); x++)
+            {
+                for (int z = -Mathf.FloorToInt(pathWidth / 2); z <= Mathf.FloorToInt(pathWidth / 2); z++)
+                {
+                    int adjustedX = Mathf.Clamp(pos.x + x, 0, terrainData.heightmapResolution - 1);
+                    int adjustedZ = Mathf.Clamp(pos.y + z, 0, terrainData.heightmapResolution - 1);
+
+                    heightMap[adjustedX, adjustedZ] = Mathf.Max(0, heightMap[adjustedX, adjustedZ] - pathDepth);
+                }
+            }
+        }
+
+        terrainData.SetHeights(0, 0, heightMap);
+
+        // Apply path texture
+        float[,,] alphamap = terrainData.GetAlphamaps(0, 0, terrainData.alphamapWidth, terrainData.alphamapHeight);
+
+        // Ensure the path texture is within the range of layers
+        int pathTextureLayer = terrainTextureData.Count < terrainData.alphamapLayers ? terrainTextureData.Count : terrainData.alphamapLayers - 1;
+
+        foreach (Vector2Int pos in path)
+        {
+            for (int x = -Mathf.FloorToInt(pathWidth / 2); x <= Mathf.FloorToInt(pathWidth / 2); x++)
+            {
+                for (int z = -Mathf.FloorToInt(pathWidth / 2); z <= Mathf.FloorToInt(pathWidth / 2); z++)
+                {
+                    int adjustedX = Mathf.Clamp(pos.x + x, 0, terrainData.alphamapWidth - 1);
+                    int adjustedZ = Mathf.Clamp(pos.y + z, 0, terrainData.alphamapHeight - 1);
+                    alphamap[adjustedZ, adjustedX, pathTextureLayer] = 1;
+                }
+            }
+        }
+
+        terrainData.SetAlphamaps(0, 0, alphamap);
+
+        Debug.Log("Path generation complete");
+    }
+
+
     private void OnDestory()
     {
         if (flattenTerrain)
@@ -325,8 +420,33 @@ public class RandomHeighs : MonoBehaviour
         }
     }
 
-    
-  
+    private void AddPlayer()
+    {
+        if (playerPrefab != null)
+        {
+            // Set player to random position
+            int terrainWidth = terrainData.heightmapResolution;
+            int terrainHeight = terrainData.heightmapResolution;
 
-  
+            int x = Random.Range(0, terrainWidth);
+            int z = Random.Range(0, terrainHeight);
+
+            float normalizedX = (float)x / terrainWidth;
+            float normalizedZ = (float)z / terrainHeight;
+
+            float currentHeight = terrainData.GetHeight(x, z) / terrainData.size.y;
+            Vector3 playerPosition = new Vector3(normalizedX * terrainData.size.x, currentHeight * terrainData.size.y + 1, normalizedZ * terrainData.size.z);
+
+            GameObject playerObject = Instantiate(playerPrefab, playerPosition, Quaternion.identity);
+            playerObject.name = "Player";
+            Debug.Log("Player added at position: " + playerPosition);
+        }
+        else
+        {
+            Debug.LogError("Player prefab is not assigned.");
+        }
+    }
+
+
+
 }
