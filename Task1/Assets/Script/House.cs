@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class House : MonoBehaviour
@@ -45,9 +46,8 @@ public class House : MonoBehaviour
     [SerializeField]
     private Vector3 rightWindowPosition = new Vector3(0f,139f,-100f);
 
-    //[SerializeField] public Vector3 position = new Vector3(0f,0f,0f);
-    GameObject houseGameObject;
 
+    GameObject houseGameObject;
 
 
     // Start is called before the first frame update
@@ -62,7 +62,11 @@ public class House : MonoBehaviour
         // List to store spawn points
         List<Vector3> spawnPoints = new List<Vector3>()
       {
-        new Vector3(0f, 0f, 0f),
+        new Vector3(-1600f, 0f,350f),
+         new Vector3(-1350f, 0f,350f),
+        new Vector3(-1150f, 0f,350f),
+        new Vector3(-850f, 0f,350f),
+        new Vector3(0f, 0f,0f),
         new Vector3(0f, 0f, 500f),
         new Vector3(-700f, 0f, -200f),
         new Vector3(-700f, 0f, -400f),
@@ -72,6 +76,9 @@ public class House : MonoBehaviour
         new Vector3(-1200f, 0f, -550f),
         new Vector3(-1200f, 0f, -300f),
         new Vector3(1200f, 0f, -300f),
+        new Vector3(1200f, 0f, -500f),
+        new Vector3(1200f, 0f, -350f),
+
       };
 
         for (int i = 0; i < numberOfHouses; i++)
@@ -132,6 +139,7 @@ public class House : MonoBehaviour
 
 
     }
+
 
     private void CreateFloor(){
         GameObject cube = new GameObject();
@@ -202,6 +210,7 @@ public class House : MonoBehaviour
     }*/
 
     //--------------  Material List ----------------    
+
 
     private List<Material> GroundMaterialList(){
         List<Material> groundMaterialList = new List<Material>();

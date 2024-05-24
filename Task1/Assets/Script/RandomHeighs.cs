@@ -84,6 +84,8 @@ public class RandomHeighs : MonoBehaviour
     [SerializeField]
     private float waterHeight = 0.3f;
 
+    public Material Skymateial;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -97,17 +99,19 @@ public class RandomHeighs : MonoBehaviour
             terrainData = Terrain.activeTerrain.terrainData;
         }
 
-        GenerateRandomHeights();
-        GenerateRandomHeights();
+  
         AddTerrainTexure();
         AddTree();
         OnDestory();
         AddWater();
+
+        RenderSettings.skybox = Skymateial;
     }
 
     void Update()
     {
 
+              GenerateRandomHeights();
     }
         private void GenerateRandomHeights()
         {
@@ -321,7 +325,7 @@ public class RandomHeighs : MonoBehaviour
         }
     }
 
-        
+    
   
 
   

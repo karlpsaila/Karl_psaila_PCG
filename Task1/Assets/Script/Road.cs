@@ -30,6 +30,12 @@ public class Road : MonoBehaviour
     GameObject additionalRoad2; // New road 2 GameObject
 
     [SerializeField]
+    GameObject Plain;
+
+    [SerializeField]
+    GameObject ball;
+
+    [SerializeField]
     GameObject carPrefab;
 
     GameObject car;
@@ -37,7 +43,6 @@ public class Road : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         InitializeVerticalRoad();
         InitializeHorizontalRoad();
         InitializeAdditionalRoad1();
@@ -46,9 +51,17 @@ public class Road : MonoBehaviour
         CreateHorizontalRoad();
         CreateAdditionalRoad1();
         CreateAdditionalRoad2();
+
         InitializeCar();
+        Initializeplane();
+        Initializeball();
     }
 
+    private void Update()
+    {
+
+
+    }
     private void InitializeCar()
     {
         float carZOffset = -60f;
@@ -63,6 +76,19 @@ public class Road : MonoBehaviour
         car.transform.parent = this.transform;
     }
 
+    private void Initializeplane()
+    {
+        Vector3  plainspawn = new Vector3(0,0,0);
+        Plain = Instantiate(Plain, plainspawn, Quaternion.identity);
+        Plain.name = "Plain";
+    }
+
+    private void Initializeball()
+    {
+        Vector3 ballspawn = new Vector3(0, 0, 0);
+        ball = Instantiate(ball, ballspawn, Quaternion.identity);
+        ball.name = "ball";
+    }
     private void InitializeVerticalRoad()
     {
         verticalRoad = new GameObject();
